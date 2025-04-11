@@ -1,296 +1,196 @@
-﻿using System;
-using Tuan1;
-public class Lab1
+using System;
+
+namespace Tuan1
 {
-    static bool snt(int n)
+    public class Lab1
     {
-        if (n < 2) return false;
-        for (int i = 2; i <= Math.Sqrt(n); i++)
+        static bool KiemTraSoNguyenTo(int n)
         {
-            if (n % i == 0) return false;
-        }
-        return true;
-    }
-    //Bài 1: Viết chương trình nhập vào tên và tuổi, sau đó in ra màn hình thông báo "Xin chào [tên], bạn [tuổi] tuổi!".
-    public static void bai1()
-    {
-        System.Console.WriteLine("Bai1: Nhap ten va tuoi cua ban.");
-        Console.WriteLine("Nhap ten cua ban: ");
-        string? name = Console.ReadLine();
-        Console.WriteLine("Nhap tuoi cua ban: ");
-        try
-        {
-            int age = int.Parse(Console.ReadLine() ?? "0");
-            if (age < 0)
+            if (n < 2) return false;
+            for (int i = 2; i <= Math.Sqrt(n); i++) // Kiểm tra đến căn bậc hai
             {
-                throw new CheckAmDuongException("Tuoi phai la mot so nguyen duong!");
+                if (n % i == 0) return false;
             }
-            Console.WriteLine($"Xin chao {name}, ban {age} tuoi!");
+            return true;
         }
-        catch (FormatException)
+
+        // Bài 1: Chào hỏi với tên và tuổi.
+        public static void Bai1()
         {
-            Console.WriteLine("Tuoi phai la mot so nguyen!");
-        }
-        catch (CheckAmDuongException)
-        {
-            Console.WriteLine("Tuoi phai la mot so nguyen duong!");
-        }
-        catch (Exception)
-        {
-            Console.WriteLine("Da xay ra loi.");
-        }
-    }
-    //Bài 2: Viết chương trình tính diện tích của hình chữ nhật khi người dùng nhập chiều dài và chiều rộng.
-    public static void bai2()
-    {
-        try
-        {
-            System.Console.WriteLine("Bai2: Tinh dien tich hinh chu nhat.");
-            Console.WriteLine("Nhap chieu dai: ");
-            double chieuDai = double.Parse(Console.ReadLine() ?? "0");
-            Console.WriteLine("Nhap chieu rong: ");
-            double chieuRong = double.Parse(Console.ReadLine() ?? "0");
-            if (chieuDai < 0 || chieuRong < 0)
+            Console.WriteLine("Bài 1: Nhập tên và tuổi.");
+            Console.Write("Tên của bạn: ");
+            string ten = Console.ReadLine() ?? "";
+            Console.Write("Tuổi của bạn: ");
+            if (int.TryParse(Console.ReadLine(), out int tuoi) && tuoi >= 0)
             {
-                throw new CheckAmDuongException("Chieu dai va chieu rong phai la so duong!");
-            }
-            double dienTich = chieuDai * chieuRong;
-            Console.WriteLine($"Dien tich hinh chu nhat la: {dienTich}.");
-        }
-        catch (FormatException)
-        {
-            Console.WriteLine("Chieu dai va chieu rong phai la so!");
-        }
-        catch (CheckAmDuongException)
-        {
-            Console.WriteLine("Chieu dai va chieu rong phai la so duong!");
-        }
-        catch (Exception)
-        {
-            Console.WriteLine("Da xay ra loi.");
-        }
-    }
-    //Bài 3: Viết chương trình chuyển đổi nhiệt độ từ độ C sang độ F. Công thức: F = (C * 9/5) + 32
-    public static void bai3()
-    {
-        try
-        {
-            System.Console.WriteLine("Bai3: Chuyen doi nhiet do C sang F.");
-            Console.WriteLine("Nhap nhiet do C: ");
-            double nhietDoC = double.Parse(Console.ReadLine() ?? "0");
-            double nhietDoF = (nhietDoC * 9 / 5) + 32;
-            Console.WriteLine($"Nhiet do F la: {nhietDoF}.");
-        }
-        catch (FormatException)
-        {
-            Console.WriteLine("Nhiet do phai la so!");
-        }
-        catch (Exception)
-        {
-            Console.WriteLine("Da xay ra loi.");
-        }
-    }
-    //Bài 4: Viết chương trình nhập vào một số nguyên và kiểm tra xem số đó có phải là số chẵn hay không.
-    public static void bai4()
-    {
-        try
-        {
-            System.Console.WriteLine("Bai4: Kiem tra so chan hay le.");
-            Console.WriteLine("Nhap mot so nguyen: ");
-            int n = int.Parse(Console.ReadLine() ?? "0");
-            if (n % 2 == 0)
-            {
-                Console.WriteLine($"{n} la so chan.");
+                Console.WriteLine($"Xin chào {ten}, bạn {tuoi} tuổi!");
             }
             else
             {
-                Console.WriteLine($"{n} la so le.");
+                Console.WriteLine("Tuổi phải là một số nguyên dương!");
             }
         }
-        catch (FormatException)
+
+        // Bài 2: Tính diện tích hình chữ nhật.
+        public static void Bai2()
         {
-            Console.WriteLine("Phai nhap so nguyen!");
-        }
-        catch (Exception)
-        {
-            Console.WriteLine("Da xay ra loi.");
-        }
-    }
-    //Bài 5: Viết chương trình tính tổng và tích của hai số nhập từ bàn phím
-    public static void bai5()
-    {
-        try
-        {
-            System.Console.WriteLine("Bai5: Tinh tong va tich hai so.");
-            Console.WriteLine("Nhap so thu nhat: ");
-            int a = int.Parse(Console.ReadLine() ?? "0");
-            Console.WriteLine("Nhap so thu hai: ");
-            int b = int.Parse(Console.ReadLine() ?? "0");
-            int tong = a + b;
-            int tich = a * b;
-            Console.WriteLine($"Tong cua {a} va {b} la: {tong}.");
-            Console.WriteLine($"Tich cua {a} va {b} la: {tich}.");
-        }
-        catch (FormatException)
-        {
-            Console.WriteLine("Phai nhap so nguyen!");
-        }
-        catch (Exception)
-        {
-            Console.WriteLine("Da xay ra loi.");
-        }
-    }
-    //Bài 6: Viết chương trình kiểm tra xem một số nhập vào có phải là số dương, số âm hay số không.
-    public static void bai6()
-    {
-        try
-        {
-            System.Console.WriteLine("Bai6: Kiem tra so duong, am hay khong.");
-            Console.WriteLine("Nhap mot so: ");
-            double n = double.Parse(Console.ReadLine() ?? "0");
-            if (n > 0)
+            Console.WriteLine("Bài 2: Tính diện tích hình chữ nhật.");
+            Console.Write("Nhập chiều dài: ");
+            if (double.TryParse(Console.ReadLine(), out double dai))
             {
-                Console.WriteLine($"{n} la so duong.");
-            }
-            else if (n < 0)
-            {
-                Console.WriteLine($"{n} la so am.");
+                Console.Write("Nhập chiều rộng: ");
+                if (double.TryParse(Console.ReadLine(), out double rong) && dai > 0 && rong > 0)
+                {
+                    Console.WriteLine($"Diện tích hình chữ nhật là: {dai * rong}");
+                }
+                else
+                {
+                    Console.WriteLine("Chiều dài và chiều rộng phải là số dương!");
+                }
             }
             else
             {
-                Console.WriteLine($"{n} la so khong.");
+                Console.WriteLine("Chiều dài phải là một số!");
             }
         }
-        catch (FormatException)
+
+        // Bài 3: Chuyển đổi nhiệt độ từ độ C sang độ F.
+        public static void Bai3()
         {
-            Console.WriteLine("Phai nhap so!");
-        }
-        catch (Exception)
-        {
-            Console.WriteLine("Da xay ra loi.");
-        }
-    }
-    //Bài 7: Viết chương trình kiểm tra xem một năm nhập vào có phải là năm nhuận hay không. (Năm nhuận là năm chia hết cho 4, trừ các năm chia hết cho 100 nhưng không chia hết cho 400).
-    public static void bai7()
-    {
-        try
-        {
-            System.Console.WriteLine("Bai7: Kiem tra nam nhuan.");
-            Console.WriteLine("Nhap mot nam: ");
-            int nam = int.Parse(Console.ReadLine() ?? "0");
-            if ((nam % 4 == 0 && nam % 100 != 0) || (nam % 400 == 0))
+            Console.WriteLine("Bài 3: Chuyển đổi nhiệt độ C sang F.");
+            Console.Write("Nhập nhiệt độ (°C): ");
+            if (double.TryParse(Console.ReadLine(), out double c))
             {
-                Console.WriteLine($"{nam} la nam nhuan.");
+                Console.WriteLine($"Nhiệt độ (°F): {(c * 9 / 5) + 32}");
             }
             else
             {
-                Console.WriteLine($"{nam} khong phai la nam nhuan.");
+                Console.WriteLine("Nhiệt độ phải là số!");
             }
         }
-        catch (FormatException)
+
+        // Bài 4: Kiểm tra số chẵn hay lẻ.
+        public static void Bai4()
         {
-            Console.WriteLine("Phai nhap so nguyen!");
-        }
-        catch (Exception)
-        {
-            Console.WriteLine("Da xay ra loi.");
-        }
-    }
-    //Bài 8: Viết chương trình nhập vào một số nguyên dương n và in ra bảng cửu chương từ 1 đến 10.
-    public static void bai8()
-    {
-        try
-        {
-            System.Console.WriteLine("Bai 8: In ra bang cuu chuong.");
-            Console.WriteLine("Nhap mot so nguyen duong: ");
-            int n = int.Parse(Console.ReadLine() ?? "0");
-            if (n <= 0)
+            Console.WriteLine("Bài 4: Kiểm tra số chẵn hay lẻ.");
+            Console.Write("Nhập số nguyên: ");
+            if (int.TryParse(Console.ReadLine(), out int n))
             {
-                throw new CheckAmDuongException("Phai nhap so nguyen duong!");
-            }
-            Console.WriteLine($"Bang cuu chuong cua {n}:");
-            for (int i = 1; i <= 10; i++)
-            {
-                Console.WriteLine($"{n} x {i} = {n * i}");
-            }
-        }
-        catch (FormatException)
-        {
-            Console.WriteLine("Phai nhap so nguyen!");
-        }
-        catch (CheckAmDuongException)
-        {
-            Console.WriteLine("Phai nhap so nguyen duong!");
-        }
-        catch (Exception)
-        {
-            Console.WriteLine("Da xay ra loi.");
-        }
-    }
-    //Bài 9: Viết chương trình tính giai thừa của một số nguyên dương n.
-    public static void bai9()
-    {
-        try
-        {
-            System.Console.WriteLine("Bai 9: Tinh giai thua.");
-            Console.WriteLine("Nhap mot so nguyen duong: ");
-            int n = int.Parse(Console.ReadLine() ?? "0");
-            if (n < 0)
-            {
-                throw new CheckAmDuongException("Phai nhap so nguyen duong!");
-            }
-            long giaiThua = 1;
-            for (int i = 1; i <= n; i++)
-            {
-                giaiThua *= i;
-            }
-            Console.WriteLine($"Giai thua cua {n} la: {giaiThua}.");
-        }
-        catch (FormatException)
-        {
-            Console.WriteLine("Phai nhap so nguyen!");
-        }
-        catch (CheckAmDuongException)
-        {
-            Console.WriteLine("Phai nhap so nguyen duong!");
-        }
-        catch (Exception)
-        {
-            Console.WriteLine("Da xay ra loi.");
-        }
-    }
-    // Bài 10: Viết chương trình kiểm tra xem một số có phải là số nguyên tố hay không.
-    public static void bai10()
-    {
-        try
-        {
-            System.Console.WriteLine("Bai 10: Kiem tra so nguyen to.");
-            Console.WriteLine("Nhap mot so nguyen: ");
-            int n = int.Parse(Console.ReadLine() ?? "0");
-            if (n < 0)
-            {
-                throw new CheckAmDuongException("Phai nhap so nguyen duong!");
-            }
-            if (snt(n))
-            {
-                Console.WriteLine($"{n} la so nguyen to.");
+                Console.WriteLine(n % 2 == 0 ? $"{n} là số chẵn." : $"{n} là số lẻ.");
             }
             else
             {
-                Console.WriteLine($"{n} khong phai la so nguyen to.");
+                Console.WriteLine("Phải nhập số nguyên!");
             }
         }
-        catch (FormatException)
+
+        // Bài 5: Tính tổng và tích của hai số.
+        public static void Bai5()
         {
-            Console.WriteLine("Phai nhap so nguyen!");
+            Console.WriteLine("Bài 5: Tính tổng và tích hai số.");
+            Console.Write("Nhập số thứ nhất: ");
+            if (int.TryParse(Console.ReadLine(), out int a))
+            {
+                Console.Write("Nhập số thứ hai: ");
+                if (int.TryParse(Console.ReadLine(), out int b))
+                {
+                    Console.WriteLine($"Tổng: {a + b}");
+                    Console.WriteLine($"Tích: {a * b}");
+                }
+                else
+                {
+                    Console.WriteLine("Phải nhập số nguyên!");
+                }
+            }
         }
-        catch (CheckAmDuongException)
+
+        // Bài 6: Kiểm tra số dương, âm hay không.
+        public static void Bai6()
         {
-            Console.WriteLine("Phai nhap so nguyen duong!");
+            Console.WriteLine("Bài 6: Kiểm tra số dương, âm hay không.");
+            Console.Write("Nhập một số: ");
+            if (double.TryParse(Console.ReadLine(), out double num))
+            {
+                if (num > 0) Console.WriteLine($"{num} là số dương.");
+                else if (num < 0) Console.WriteLine($"{num} là số âm.");
+                else Console.WriteLine($"{num} là số không.");
+            }
+            else
+            {
+                Console.WriteLine("Phải nhập số!");
+            }
         }
-        catch (Exception)
+
+        // Bài 7: Kiểm tra năm nhuận.
+        public static void Bai7()
         {
-            Console.WriteLine("Da xay ra loi.");
+            Console.WriteLine("Bài 7: Kiểm tra năm nhuận.");
+            Console.Write("Nhập một năm: ");
+            if (int.TryParse(Console.ReadLine(), out int nam))
+            {
+                Console.WriteLine((nam % 4 == 0 && nam % 100 != 0) || (nam % 400 == 0)
+                    ? $"{nam} là năm nhuận."
+                    : $"{nam} không phải là năm nhuận.");
+            }
+            else
+            {
+                Console.WriteLine("Phải nhập số nguyên!");
+            }
+        }
+
+        // Bài 8: In bảng cửu chương.
+        public static void Bai8()
+        {
+            Console.WriteLine("Bài 8: In bảng cửu chương.");
+            Console.Write("Nhập một số nguyên dương: ");
+            if (int.TryParse(Console.ReadLine(), out int n) && n > 0)
+            {
+                for (int i = 1; i <= 10; i++)
+                {
+                    Console.WriteLine($"{n} x {i} = {n * i}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Phải nhập số nguyên dương!");
+            }
+        }
+
+        // Bài 9: Tính giai thừa.
+        public static void Bai9()
+        {
+            Console.WriteLine("Bài 9: Tính giai thừa.");
+            Console.Write("Nhập một số nguyên dương: ");
+            if (int.TryParse(Console.ReadLine(), out int n) && n >= 0)
+            {
+                long gt = 1;
+                for (int i = 1; i <= n; i++)
+                {
+                    gt *= i;
+                }
+                Console.WriteLine($"Giai thừa của {n} là: {gt}");
+            }
+            else
+            {
+                Console.WriteLine("Phải nhập số nguyên dương!");
+            }
+        }
+
+        // Bài 10: Kiểm tra số nguyên tố.
+        public static void Bai10()
+        {
+            Console.WriteLine("Bài 10: Kiểm tra số nguyên tố.");
+            Console.Write("Nhập một số nguyên: ");
+            if (int.TryParse(Console.ReadLine(), out int n) && n > 0)
+            {
+                Console.WriteLine(KiemTraSoNguyenTo(n)
+                    ? $"{n} là số nguyên tố."
+                    : $"{n} không phải là số nguyên tố.");
+            }
+            else
+            {
+                Console.WriteLine("Phải nhập số nguyên dương!");
+            }
         }
     }
 }
